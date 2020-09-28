@@ -1,0 +1,23 @@
+.profile__name {
+  font-size: 42px;
+  line-height: 1.33;
+  font-weight: 500;
+  margin-right: 17px;
+  display: inline;
+  word-wrap: break-word;
+}
+
+/* стало две колонки */
+@media screen and (max-width: 945px) {
+  .profile__name {
+    font-size: 35px;
+    margin-right: 13px;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .profile__name {
+    font-size: 27px;
+    margin-right: 7px;
+  }
+}

@@ -1,0 +1,13 @@
+.footer {
+  font-size: 18px;
+  line-height: 1.23;
+  font-weight: normal;
+  color: #545454;
+}
+
+/* стала одна колонка */
+@media screen and (max-width: 646px) {
+  .footer {
+    font-size: 14px;
+  }
+}

@@ -1,0 +1,31 @@
+.profile__info {
+  width: var(--info-width);
+  align-self: center;
+  margin-right: var(--profile-right-gap);
+}
+
+/* стало две колонки */
+@media screen and (max-width: 945px) {
+  .profile__info {
+    width: unset;
+    max-width: calc(
+      100% - var(--avatar-size) - var(--profile-gap) - var(--profile-right-gap)
+    );
+    flex: 1 0;
+    word-spacing: 8px;
+  }
+}
+
+/* стала одна колонка */
+@media screen and (max-width: 646px) {
+  .profile__info {
+    flex: none;
+    max-width: unset;
+    width: 100%;
+    text-align: center;
+    min-height: unset;
+    margin-bottom: 32px;
+    margin-right: 0;
+    word-spacing: 2px;
+  }
+}

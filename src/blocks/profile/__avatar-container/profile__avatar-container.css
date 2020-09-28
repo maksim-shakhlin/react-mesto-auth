@@ -1,0 +1,17 @@
+.profile__avatar-container {
+  /* рендерится без каймы, когдра border-raduis */
+  /* задан у самого аватара */
+  /* border-radius: 50%; */
+  /* overflow: hidden; */
+  width: var(--avatar-size);
+  height: var(--avatar-size);
+  margin-right: var(--profile-gap);
+  position: relative;
+}
+
+/* стала одна колонка */
+@media screen and (max-width: 646px) {
+  .profile__avatar-container {
+    margin: 0 0 24px;
+  }
+}

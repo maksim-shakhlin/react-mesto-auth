@@ -1,0 +1,3 @@
+.popup__close-button_far {
+  transform: translate(calc(100% + 5px), calc(-100% - 5px));
+}

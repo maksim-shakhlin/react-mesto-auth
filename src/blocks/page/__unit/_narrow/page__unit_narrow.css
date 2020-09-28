@@ -1,0 +1,19 @@
+/* стало две колонки */
+@media screen and (max-width: 945px) {
+  .page__unit_narrow {
+    max-width: calc(2 * var(--card-width) + var(--cards-col-gap));
+  }
+}
+
+/* стала одна колонка */
+@media screen and (max-width: 646px) {
+  .page__unit_narrow {
+    max-width: calc(100% - 32px * 2);
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .page__unit_narrow {
+    max-width: calc(100% - 19px * 2);
+  }
+}

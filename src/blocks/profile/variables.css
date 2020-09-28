@@ -1,0 +1,11 @@
+:root {
+  --avatar-size: 120px;
+  --profile-gap: 30px;
+  --profile-right-gap: 50px;
+  --add-button-width: 150px;
+  --add-button-height: 50px;
+  --info-width: calc(
+    100% - var(--profile-gap) - var(--profile-right-gap) - var(--avatar-size) -
+      var(--add-button-width)
+  );
+}

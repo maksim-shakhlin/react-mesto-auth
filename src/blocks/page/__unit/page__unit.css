@@ -1,0 +1,5 @@
+@import url(./_narrow/page__unit_narrow.css);
+
+.page__unit {
+  flex-shrink: 0;
+}

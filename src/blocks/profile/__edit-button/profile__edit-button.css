@@ -1,0 +1,31 @@
+.profile__edit-button {
+  --border-width: 1px;
+  box-sizing: border-box;
+  border: solid var(--border-width) #fff;
+  /* приподнимаем на величину border до базовой линии */
+  transform: translate(0, calc(-1 * var(--border-width)));
+  background: url(../../../images/profile/edit--pencil.svg) center no-repeat;
+  background-size: 42%;
+  cursor: pointer;
+  /* задаем размер через padding, чтобы в FF выравнивалось по baseline */
+  padding: 22px 22px 0 0;
+  transition: opacity 0.15s ease;
+}
+
+.profile__edit-button:hover {
+  opacity: 0.6;
+}
+
+/* стало две колонки */
+@media screen and (max-width: 945px) {
+  .profile__edit-button {
+    padding: 18px 18px 0 0;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .profile__edit-button {
+    padding: 16px 16px 0 0;
+    background-size: 8px;
+  }
+}

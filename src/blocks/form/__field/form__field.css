@@ -1,0 +1,9 @@
+.form__field {
+  display: inline-block;
+  width: 100%;
+  margin-bottom: 8px;
+}
+
+.form__field:last-child {
+  margin-bottom: 0;
+}

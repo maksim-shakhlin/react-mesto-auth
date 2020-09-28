@@ -1,0 +1,9 @@
+@import url(./__dot/loader__dot.css);
+
+.loader {
+  color: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  font-family: inherit;
+}

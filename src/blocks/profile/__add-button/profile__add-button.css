@@ -1,0 +1,41 @@
+.profile__add-button {
+  width: 100%;
+  max-width: 150px;
+  height: var(--add-button-height);
+  /* инфа может быть несколько строк и выше аватара */
+  /* вертикально центруем кнопку по аватару */
+  margin-top: calc((var(--avatar-size) - var(--add-button-height)) / 2);
+  margin-left: auto;
+  box-sizing: border-box;
+  border: solid 2px #fff;
+  border-radius: 2px;
+  background: url(../../../images/profile/add--plus.svg) center no-repeat;
+  background-size: 22px;
+  cursor: pointer;
+  transition: opacity 0.15s ease;
+}
+
+.profile__add-button:hover {
+  opacity: 0.6;
+}
+
+/* стало две колонки */
+@media screen and (max-width: 945px) {
+  .profile__add-button {
+    margin-right: auto;
+  }
+}
+
+/* стала одна колонка */
+@media screen and (max-width: 646px) {
+  .profile__add-button {
+    margin: 0;
+    max-width: 282px;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .profile__add-button {
+    background-size: 16px;
+  }
+}

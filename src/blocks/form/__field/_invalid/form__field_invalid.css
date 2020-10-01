@@ -1,0 +1,4 @@
+.form__field_invalid:before {
+  border-bottom: 1px solid #f00;
+  transition: border-bottom-color 0.5s 0.5s ease;
+}

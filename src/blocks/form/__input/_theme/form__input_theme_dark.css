@@ -1,0 +1,24 @@
+.form__input_theme_dark {
+  background-color: unset;
+  border-bottom: 2px solid #ccc;
+  color: #fff;
+}
+
+.form__input_theme_dark:focus:not(.form__input_invalid) {
+  border-bottom-color: #fff;
+}
+
+.form__input_theme_dark::-webkit-input-placeholder {
+  color: #ccc;
+}
+.form__input_theme_dark:-ms-input-placeholder {
+  color: #ccc;
+}
+.form__input_theme_dark::-moz-placeholder {
+  color: #ccc;
+  opacity: 1;
+}
+.form__input_theme_dark:-moz-placeholder {
+  color: #ccc;
+  opacity: 1;
+}

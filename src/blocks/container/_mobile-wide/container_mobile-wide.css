@@ -1,0 +1,5 @@
+@media screen and (max-width: 425px) {
+  .container_mobile-wide {
+    max-width: calc(100% - 19px * 2);
+  }
+}

@@ -1,20 +1,24 @@
 export const errorsDictionaries = {
-  userProfile: {
+  profile: {
     name: {
       tooShort: 'От 2 до 40 значащих символов.',
-      patternMismatch: 'Можно только буквы и дефисы.',
+      patternMismatch: 'Можно только буквы, пробелы и дефисы.',
     },
     about: { tooShort: 'От 2 до 200 значащих символов.' },
   },
 
-  addPlace: {
+  place: {
     name: {
       tooShort: 'От 2 до 30 значащих символов.',
     },
   },
   default: {
     valueMissing: 'Это обязательное поле.',
-    typeMismatch: 'Это должна быть ссылка.',
+    typeMismatch: {
+      email: 'Невалидный email.',
+      url: 'Это должна быть ссылка.',
+      default: 'Данные не соответсвуют нужному типу.',
+    },
   },
 };
 
@@ -26,4 +30,4 @@ export const apiOptions = {
   },
 };
 
-export const delay = 300;
+export const delay = 150;

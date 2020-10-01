@@ -1,15 +1,22 @@
 .form__input {
   width: 100%;
-  margin-bottom: 2px;
+  margin-bottom: 4px;
   font-size: 14px;
   line-height: 1.22;
   font-weight: normal;
-  padding: 8px 6px 8px;
+  padding: 8px 2px;
   border: none;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   box-sizing: border-box;
   border-radius: 0;
-  transition: outline-color 0.5s ease;
+  border-bottom: 1px solid #ccc;
+}
+
+.form__input:focus:not(.form__input_invalid) {
+  border-bottom-color: #000;
+}
+
+.form__input:focus {
+  outline: none;
 }
 
 @media screen and (max-width: 500px) {

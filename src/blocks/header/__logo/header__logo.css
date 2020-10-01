@@ -1,22 +1,6 @@
-/* стало две колонки */
-@media screen and (max-width: 945px) {
+@media screen and (max-width: 500px) {
   .header__logo {
-    margin-left: calc(
-      (100% - 2 * var(--card-width) - var(--cards-col-gap)) / 2
-    );
-  }
-}
-
-/* стала одна колонка */
-@media screen and (max-width: 646px) {
-  .header__logo {
-    margin-left: 32px;
-  }
-}
-
-@media screen and (max-width: 425px) {
-  .header__logo {
-    margin-left: 27px;
     width: 104px;
+    margin-right: 16px;
   }
 }

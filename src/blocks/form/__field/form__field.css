@@ -1,9 +1,11 @@
 .form__field {
   display: inline-block;
   width: 100%;
-  margin-bottom: 8px;
+  position: relative;
+  margin-bottom: 10px;
+  cursor: text;
 }
 
-.form__field:last-child {
+.form__field:last-of-type {
   margin-bottom: 0;
 }

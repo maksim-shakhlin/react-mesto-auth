@@ -1,7 +1,10 @@
 @import url(./__close-button/popup__close-button.css);
-@import url(./__close-button/_far/popup__close-button_far.css);
+@import url(./__close-button/_for/popup__close-button_for_image.css);
+@import url(./__close-button/_for/popup__close-button_for_tooltip.css);
 @import url(./__container/popup__container.css);
+@import url(./__container/popup__container_solid.css);
 @import url(./__container/_for/popup__container_for_form.css);
+@import url(./__container/_for/popup__container_for_tooltip.css);
 
 .popup {
   visibility: hidden;

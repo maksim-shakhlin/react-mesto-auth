@@ -1,12 +1,17 @@
 import React from 'react';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import Header from './Header';
 import Main from './Main';
 import Footer from './Footer';
+import ProtectedRoute from './ProtectedRoute';
 import PopupWithForm from './PopupWithForm';
 import ImagePopup from './ImagePopup';
 import EditProfilePopup from './EditProfilePopup';
 import EditAvatarPopup from './EditAvatarPopup';
 import AddPlacePopup from './AddPlacePopup';
+import Login from './Login';
+import Register from './Register';
+import InfoTooltip from './InfoTooltip';
 
 import CurrentUserContext from '../contexts/CurrentUserContext';
 
@@ -16,6 +21,7 @@ import api from '../utils/api';
 import { cleanData } from './../utils/utils';
 
 function App() {
+  const [showTopMenu, setShowTopMenu] = React.useState();
   const [isEditProfilePopupOpen, setEditProfilePopupOpen] = React.useState(
     false
   );
@@ -25,6 +31,8 @@ function App() {
   const [isConfirmDeletePopupOpen, setConfirmDeletePopupOpen] = React.useState(
     false
   );
+  const [isInfoTooltipOpen, setInfoTooltipOpen] = React.useState(false);
+
   const [currentUser, setCurrentUser] = React.useState({});
   const [cards, setCards] = React.useState([]);
   const [selectedCard, setSelectedCard] = React.useState({});
@@ -63,6 +71,7 @@ function App() {
     setEditAvatarPopupOpen(false);
     setImagePopupOpen(false);
     setConfirmDeletePopupOpen(false);
+    setInfoTooltipOpen(false);
     setTimeout(() => {
       setSelectedCard();
     }, delay);
@@ -151,19 +160,53 @@ function App() {
       });
   }
 
+  function handleShowMenu() {
+    setShowTopMenu(true);
+  }
+
+  function handleHideMenu() {
+    setShowTopMenu(false);
+  }
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
-      <div className="page">
-        <Header />
-        <Main
-          cards={cards}
-          onEditProfile={handleEditProfileClick}
-          onAddPlace={handleAddPlaceClick}
-          onEditAvatar={handleEditAvatarClick}
-          onCardClick={handleCardClick}
-          onCardDelete={handleCardDeleteClick}
-          onCardLike={handleCardLike}
+      <div
+        className={`page${
+          showTopMenu === undefined
+            ? ''
+            : showTopMenu
+            ? ' rolling-down'
+            : ' page_rolled_up rolling-up'
+        }`}
+      >
+        <Header
+          onShowMenu={handleShowMenu}
+          onHideMenu={handleHideMenu}
+          showTopMenu={showTopMenu}
         />
+        <Switch>
+          <ProtectedRoute
+            exact
+            path="/"
+            component={Main}
+            cards={cards}
+            onEditProfile={handleEditProfileClick}
+            onAddPlace={handleAddPlaceClick}
+            onEditAvatar={handleEditAvatarClick}
+            onCardClick={handleCardClick}
+            onCardDelete={handleCardDeleteClick}
+            onCardLike={handleCardLike}
+          />
+          <Route path="/sign-in">
+            <Login />
+          </Route>
+          <Route path="/sign-up">
+            <Register />
+          </Route>
+          <Route path="*">
+            <Redirect to="/" />
+          </Route>
+        </Switch>
         <Footer />
       </div>
       <EditProfilePopup
@@ -186,19 +229,25 @@ function App() {
       />
       <PopupWithForm
         isOpen={isConfirmDeletePopupOpen}
-        name="confirm-delete"
-        title="Вы уверены?"
-        action="Да"
-        loaderAction="Удаление"
-        noinputs
-        onSubmit={handleConfirmCardDelete}
         onClose={closeAllPopups}
-        showLoader={showDeleteCardLoader}
+        form={{
+          name: 'confirm-delete',
+          title: 'Вы уверены?',
+          action: 'Да',
+          loaderAction: 'Удаление',
+          showLoader: showDeleteCardLoader,
+          onSubmit: handleConfirmCardDelete,
+        }}
       />
       <ImagePopup
         card={selectedCard}
         onClose={closeAllPopups}
         isOpen={isImagePopupOpen}
+      />
+      <InfoTooltip
+        onClose={closeAllPopups}
+        isOpen={isInfoTooltipOpen}
+        isSuccess={true}
       />
     </CurrentUserContext.Provider>
   );

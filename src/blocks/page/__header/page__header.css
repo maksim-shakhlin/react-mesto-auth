@@ -1,11 +1,9 @@
 .page__header {
   margin-bottom: 40px;
-  min-height: 74px;
 }
 
 @media screen and (max-width: 425px) {
   .page__header {
-    min-height: 56px;
     margin-bottom: 42px;
   }
 }

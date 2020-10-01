@@ -8,3 +8,9 @@
   row-gap: 20px;
   justify-content: center;
 }
+
+@media screen and (max-width: 500px) {
+  .cards__list {
+    row-gap: 19px;
+  }
+}

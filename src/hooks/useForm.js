@@ -1,10 +1,23 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 
 function getErrorMessage(input, errorsDict = {}) {
   const validity = input.validity;
 
   for (const key in validity) {
     if (validity[key]) {
+      if (key === 'typeMismatch') {
+        const spec = errorsDict[input.name];
+        const specified_value =
+          spec &&
+          spec[key] &&
+          (spec[key][input.type] || spec[key].default || spec[key]);
+        const def = errorsDict.default;
+        const default_value =
+          def &&
+          def[key] &&
+          (def[key][input.type] || def[key].default || def[key]);
+        return specified_value || default_value || input.validationMessage;
+      }
       return (
         (errorsDict[input.name] && errorsDict[input.name][key]) ||
         (errorsDict.default && errorsDict.default[key]) ||
@@ -21,7 +34,7 @@ function validate(input, validator) {
   return input.closest('form').checkValidity();
 }
 
-export function useFormWithValidation(errorsDict = {}, extraValidator) {
+export function useFormWithValidation(errorsDict = {}, extraValidators) {
   const [values, setValues] = React.useState({});
   const [errors, setErrors] = React.useState({});
   const [isValid, setIsValid] = React.useState(false);
@@ -31,18 +44,22 @@ export function useFormWithValidation(errorsDict = {}, extraValidator) {
     const name = target.name;
     const value = target.value;
     setValues({ ...values, [name]: value });
-    setIsValid(validate(target, extraValidator));
+    setIsValid(validate(target, extraValidators.name));
     setErrors({
       ...errors,
       [name]: getErrorMessage(target, errorsDict),
     });
   };
 
-  const resetForm = useCallback(
-    (newValues = {}, newErrors = {}, newIsValid = false) => {
-      setValues(newValues);
+  const resetForm = React.useCallback(
+    (newValues, newErrors, newIsValid = false) => {
+      if (newValues) {
+        setValues(newValues);
+      }
       setIsValid(newIsValid);
-      setErrors(newErrors);
+      if (newErrors) {
+        setErrors(newErrors);
+      }
     },
     [setValues, setErrors, setIsValid]
   );

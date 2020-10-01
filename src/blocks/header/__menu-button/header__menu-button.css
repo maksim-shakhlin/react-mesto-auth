@@ -1,0 +1,12 @@
+.header__menu-button {
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: none;
+}
+
+@media screen and (max-width: 500px) {
+  .header__menu-button {
+    display: block;
+  }
+}

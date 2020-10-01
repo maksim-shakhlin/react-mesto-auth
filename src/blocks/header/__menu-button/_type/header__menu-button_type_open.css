@@ -1,0 +1,5 @@
+.header__menu-button_type_open {
+  background-image: url(../../../../images/header/menu--burger.svg);
+  width: 24px;
+  height: 21px;
+}

@@ -1,18 +1,6 @@
 import React from 'react';
 
-function Popup({
-  isOpen,
-  children,
-  containerExtraClasses,
-  closeButtonExtraClasses,
-  onClose,
-}) {
-  const openedClass = (isOpen && ' popup_opened') || '';
-  containerExtraClasses =
-    (containerExtraClasses && ' ' + containerExtraClasses) || '';
-  closeButtonExtraClasses =
-    (closeButtonExtraClasses && ' ' + closeButtonExtraClasses) || '';
-
+const Popup = React.memo(({ isOpen, children, extraClasses = {}, onClose }) => {
   function closeOnEscape(event) {
     if (event.key === 'Escape') {
       onClose();
@@ -37,19 +25,19 @@ function Popup({
 
   return (
     <section
-      className={`popup${openedClass}`}
+      className={`popup${isOpen ? ' popup_opened' : ''}`}
       onMouseDown={closeOnOverlayClick}
     >
-      <div className={'popup__container' + containerExtraClasses}>
+      <div className={`popup__container ${extraClasses.container || ''}`}>
         {children}
         <button
-          type='button'
-          className={'popup__close-button' + closeButtonExtraClasses}
+          type="button"
+          className={`popup__close-button ${extraClasses.button || ''}`}
           onClick={onClose}
         />
       </div>
     </section>
   );
-}
+});
 
 export default Popup;

@@ -26,3 +26,14 @@ export function validateLength(input) {
 
   return '';
 }
+
+export function omit(object, ...skip) {
+  const newObj = {};
+  for (const key in object) {
+    if (skip.includes(key)) {
+      continue;
+    }
+    newObj[key] = object[key];
+  }
+  return newObj;
+}

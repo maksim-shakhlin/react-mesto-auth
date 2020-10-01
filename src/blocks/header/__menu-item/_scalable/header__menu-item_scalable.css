@@ -1,0 +1,11 @@
+@media screen and (max-width: 646px) {
+  .header__menu-item_scalable {
+    font-size: 16px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .header__menu-item_scalable {
+    font-size: 14px;
+  }
+}

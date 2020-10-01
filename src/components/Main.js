@@ -26,8 +26,8 @@ function Main({
   }
 
   return (
-    <main className="content page__content unit page__unit page__unit_narrow">
-      <section className="profile content__profile">
+    <main className="content page__content unit page__unit container container_mobile-wide">
+      <section className="profile content__profile unit">
         {currentUser && (
           <>
             <div className="profile__avatar-container" onClick={onEditAvatar}>
@@ -60,7 +60,7 @@ function Main({
         />
       </section>
       {cards && (
-        <section className="cards">
+        <section className="cards unit">
           <ul className="cards__list">
             {cards.map((card) => (
               <Card

@@ -1,0 +1,12 @@
+.tooltip__icon {
+  width: 120px;
+  height: 120px;
+  object-fit: scale-down;
+  margin-bottom: 32px;
+}
+
+@media screen and (max-width: 500px) {
+  .tooltip__icon {
+    margin-bottom: 40px;
+  }
+}

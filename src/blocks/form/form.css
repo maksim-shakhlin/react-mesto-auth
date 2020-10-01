@@ -1,25 +1,13 @@
 @import url(./__fields/form__fields.css);
 @import url(./__title/form__title.css);
+@import url(./__title/_place/form__title_place_content.css);
 @import url(./__field/form__field.css);
 @import url(./__input/form__input.css);
+@import url(./__input/_theme/form__input_theme_dark.css);
 @import url(./__input/_invalid/form__input_invalid.css);
 @import url(./__input-error/form__input-error.css);
 @import url(./__input-error/_visible/form__input-error_visible.css);
 @import url(./__button/form__button.css);
+@import url(./__button/_theme/form__button_theme_dark.css);
 @import url(./__button/_disabled/form__button_disabled.css);
-
-.form {
-  background-color: #fff;
-  color: #000;
-  width: 100%;
-  border-radius: 10px;
-  padding: 36px;
-  box-sizing: border-box;
-  max-width: 430px;
-}
-
-@media screen and (max-width: 500px) {
-  .form {
-    padding: 30px 20px;
-  }
-}
+@import url(./__button/_place/form__button_place_content.css);

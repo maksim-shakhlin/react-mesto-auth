@@ -1,0 +1,15 @@
+.header__container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 45px;
+}
+
+/* стала одна колонка */
+@media screen and (max-width: 646px) {
+  .header__container {
+    padding-top: 28px;
+  }
+}

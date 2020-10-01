@@ -6,7 +6,7 @@ function ImagePopup({ card, isOpen, onClose }) {
   return (
     <Popup
       isOpen={isOpen}
-      closeButtonExtraClasses="popup__close-button_far"
+      extraClasses={{ button: 'popup__close-button_for_image' }}
       onClose={onClose}
     >
       <figure className="figure">

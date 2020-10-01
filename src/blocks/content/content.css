@@ -1,1 +1,10 @@
 @import url(./__profile/content__profile.css);
+@import url(./__link/content__link.css);
+@import url(./__tagline/content__tagline.css);
+
+.content {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

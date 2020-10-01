@@ -1,0 +1,27 @@
+@keyframes rolling-down {
+  from {
+    margin-top: -143px;
+  }
+  to {
+    margin-top: 0;
+  }
+}
+
+.rolling-down {
+  animation: rolling-down 0.4s ease;
+}
+
+/* setting 'reverse' in animation won't do in our case due to */
+/* margin is affected by '.page_rolled_up' for consistent performance */
+@keyframes rolling-up {
+  from {
+    margin-top: 0;
+  }
+  to {
+    margin-top: -143px;
+  }
+}
+
+.rolling-up {
+  animation: rolling-up 0.4s ease;
+}

@@ -56,6 +56,10 @@ class Api {
       return this._request(`/cards/likes/${cardId}`, 'DELETE');
     }
   }
+
+  setToken(token) {
+    this._headers.authorization = `Bearer ${token}`;
+  }
 }
 
 const api = new Api(apiOptions);

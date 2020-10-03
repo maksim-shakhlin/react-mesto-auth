@@ -1,5 +1,5 @@
-import React from 'react';
-import { Route, Switch, Redirect } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Route, Switch, Redirect, useHistory } from 'react-router-dom';
 import Header from './Header';
 import Main from './Main';
 import Footer from './Footer';
@@ -16,42 +16,35 @@ import InfoTooltip from './InfoTooltip';
 import CurrentUserContext from '../contexts/CurrentUserContext';
 
 import { handleError } from '../utils/utils';
-import { delay } from '../utils/constants';
+import { delay, status, statuses } from '../utils/constants';
 import api from '../utils/api';
+import auth from '../utils/auth';
 import { cleanData } from './../utils/utils';
 
 function App() {
-  const [showTopMenu, setShowTopMenu] = React.useState();
-  const [isEditProfilePopupOpen, setEditProfilePopupOpen] = React.useState(
-    false
-  );
-  const [isAddPlacePopupOpen, setAddPlacePopupOpen] = React.useState(false);
-  const [isEditAvatarPopupOpen, setEditAvatarPopupOpen] = React.useState(false);
-  const [isImagePopupOpen, setImagePopupOpen] = React.useState(false);
-  const [isConfirmDeletePopupOpen, setConfirmDeletePopupOpen] = React.useState(
-    false
-  );
-  const [isInfoTooltipOpen, setInfoTooltipOpen] = React.useState(false);
+  const history = useHistory();
+  const [showTopMenu, setShowTopMenu] = useState();
+  const [isEditProfilePopupOpen, setEditProfilePopupOpen] = useState(false);
+  const [isAddPlacePopupOpen, setAddPlacePopupOpen] = useState(false);
+  const [isEditAvatarPopupOpen, setEditAvatarPopupOpen] = useState(false);
+  const [isImagePopupOpen, setImagePopupOpen] = useState(false);
+  const [isConfirmDeletePopupOpen, setConfirmDeletePopupOpen] = useState(false);
+  const [tooltipStatus, setTooltipStatus] = useState(status.UNSET);
+  const [isTooltipOpen, setTooltipOpen] = useState(false);
 
-  const [currentUser, setCurrentUser] = React.useState({});
-  const [cards, setCards] = React.useState([]);
-  const [selectedCard, setSelectedCard] = React.useState({});
+  const [currentUser, setCurrentUser] = useState({});
+  const [cards, setCards] = useState([]);
+  const [selectedCard, setSelectedCard] = useState({});
+  const [email, setEmail] = useState('');
 
-  const [showAddPlaceLoader, setShowAddPlaceLoader] = React.useState(false);
-  const [showEditAvatarLoader, setShowEditAvatarLoader] = React.useState(false);
-  const [showEditProfileLoader, setShowEditProfileLoader] = React.useState(
-    false
-  );
-  const [showDeleteCardLoader, setShowDeleteCardLoader] = React.useState(false);
+  const [showAddPlaceLoader, setShowAddPlaceLoader] = useState(false);
+  const [showEditAvatarLoader, setShowEditAvatarLoader] = useState(false);
+  const [showEditProfileLoader, setShowEditProfileLoader] = useState(false);
+  const [showDeleteCardLoader, setShowDeleteCardLoader] = useState(false);
+  const [showLoginLoader, setShowLoginLoader] = useState(false);
+  const [showRegistrationLoader, setShowRegistrationLoader] = useState(false);
 
-  React.useEffect(() => {
-    Promise.all([api.getUser(), api.getInitialCards()])
-      .then((data) => {
-        setCurrentUser(data[0]);
-        setCards(data[1]);
-      })
-      .catch((error) => handleError(error));
-  }, []);
+  const [isLoggedIn, setLoggedIn] = useState(false);
 
   function handleEditProfileClick() {
     setEditProfilePopupOpen(true);
@@ -71,7 +64,6 @@ function App() {
     setEditAvatarPopupOpen(false);
     setImagePopupOpen(false);
     setConfirmDeletePopupOpen(false);
-    setInfoTooltipOpen(false);
     setTimeout(() => {
       setSelectedCard();
     }, delay);
@@ -168,6 +160,97 @@ function App() {
     setShowTopMenu(false);
   }
 
+  function handleCloseTooltip() {
+    if (tooltipStatus === status.REGISTERED) {
+      history.push('/sign-in');
+    }
+    setTooltipOpen(false);
+  }
+
+  function getData() {
+    Promise.all([api.getUser(), api.getInitialCards()])
+      .then(([user, cards]) => {
+        setCurrentUser(user);
+        setCards(cards);
+      })
+      .catch((error) => handleError(error));
+  }
+
+  function validateToken(token) {
+    auth
+      .checkToken(token)
+      .then((res) => {
+        setLoggedIn(true);
+        setEmail(res.data.email);
+        localStorage.setItem('jwt', token);
+        history.push('/');
+      })
+      .catch((error) => {
+        if (error.code === 401) {
+          localStorage.removeItem('jwt');
+          return;
+        }
+        handleError(error);
+      });
+  }
+
+  useEffect(() => {
+    const jwt = localStorage.getItem('jwt');
+    if (jwt) {
+      validateToken(jwt);
+    }
+  }, []);
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  function handleRegister(data) {
+    setShowRegistrationLoader(true);
+    auth
+      .register(data)
+      .then(() => {
+        setTooltipStatus(status.REGISTERED);
+        setTooltipOpen(true);
+      })
+      .catch((error) => {
+        handleError(error);
+        setTooltipStatus(status.REGISTRATION_FAIL);
+        setTooltipOpen(true);
+      })
+      .finally(() => {
+        setShowRegistrationLoader(false);
+      });
+  }
+
+  function handleLogin(data) {
+    setShowLoginLoader(true);
+    auth
+      .authorize(data)
+      .then((res) => {
+        if (res.token) {
+          validateToken(res.token);
+        }
+      })
+      .catch((error) => {
+        handleError(error);
+        if (error.code === 401) {
+          setTooltipStatus(status.NO_USER);
+          setTooltipOpen(true);
+        }
+      })
+      .finally(() => {
+        setShowLoginLoader(false);
+      });
+  }
+
+  function handleLogout() {
+    setShowTopMenu();
+    setLoggedIn(false);
+    setEmail('');
+    localStorage.removeItem('jwt');
+  }
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div
@@ -183,9 +266,12 @@ function App() {
           onShowMenu={handleShowMenu}
           onHideMenu={handleHideMenu}
           showTopMenu={showTopMenu}
+          onLogout={handleLogout}
+          email={email}
         />
         <Switch>
           <ProtectedRoute
+            condition={isLoggedIn}
             exact
             path="/"
             component={Main}
@@ -198,10 +284,13 @@ function App() {
             onCardLike={handleCardLike}
           />
           <Route path="/sign-in">
-            <Login />
+            <Login showLoader={showLoginLoader} onLogin={handleLogin} />
           </Route>
           <Route path="/sign-up">
-            <Register />
+            <Register
+              showLoader={showRegistrationLoader}
+              onRegister={handleRegister}
+            />
           </Route>
           <Route path="*">
             <Redirect to="/" />
@@ -245,9 +334,9 @@ function App() {
         isOpen={isImagePopupOpen}
       />
       <InfoTooltip
-        onClose={closeAllPopups}
-        isOpen={isInfoTooltipOpen}
-        isSuccess={true}
+        onClose={handleCloseTooltip}
+        status={statuses[tooltipStatus]}
+        isOpen={isTooltipOpen}
       />
     </CurrentUserContext.Provider>
   );

@@ -1,3 +1,6 @@
+import succesIcon from '../images/tooltip/success.svg';
+import failureIcon from '../images/tooltip/failure.svg';
+
 export const errorsDictionaries = {
   profile: {
     name: {
@@ -31,3 +34,25 @@ export const apiOptions = {
 };
 
 export const delay = 150;
+
+export const statuses = [
+  {},
+  { icon: succesIcon, alt: 'OK', text: 'Вы успешно зарегистрировались!' },
+  {
+    icon: failureIcon,
+    alt: 'Неудача',
+    text: 'Что-то пошло не так! Попробуйте ещё раз.',
+  },
+  {
+    icon: failureIcon,
+    alt: 'Пользователь не найден',
+    text: 'Неправильный email или пароль.',
+  },
+];
+
+export const status = {
+  UNSET: 0,
+  REGISTERED: 1,
+  REGISTRATION_FAIL: 2,
+  NO_USER: 3,
+};

@@ -10,6 +10,7 @@ function Auth({
   title,
   action,
   loaderAction,
+  autoComplete = 'off',
 }) {
   const inputs = [
     {
@@ -17,12 +18,14 @@ function Auth({
       type: 'email',
       required: true,
       placeholder: 'Email',
+      autoComplete: autoComplete,
     },
     {
       name: 'password',
       type: 'password',
       required: true,
       placeholder: 'Пароль',
+      autoComplete: autoComplete,
     },
   ];
 

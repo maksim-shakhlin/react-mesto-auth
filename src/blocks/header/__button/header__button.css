@@ -1,11 +1,19 @@
 .header__button {
   background: none;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: none;
   border: none;
-  color: #a9a9a9;
+  border-radius: 0;
   cursor: pointer;
   transition: opacity 0.15s ease;
-  margin-left: 24px;
-  padding: 0;
+}
+
+@media screen and (max-width: 646px) {
+  .header__button {
+    display: block;
+  }
 }
 
 .header__button:hover {

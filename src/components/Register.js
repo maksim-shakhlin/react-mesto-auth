@@ -6,7 +6,7 @@ function Register({ onRegister, showLoader }) {
     <Auth
       showLoader={showLoader}
       onSubmit={onRegister}
-      title="Вход"
+      title="Регистрация"
       action="Зарегистрироваться"
       loaderAction="Регистрация"
       link="/sign-in"

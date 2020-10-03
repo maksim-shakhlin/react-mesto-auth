@@ -11,6 +11,7 @@ function Login({ onLogin, showLoader }) {
       loaderAction="Вход"
       link="/sign-up"
       linkText="Регистрация"
+      autoComplete="on"
     />
   );
 }

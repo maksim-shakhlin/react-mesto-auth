@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PopupWithForm from './PopupWithForm';
 import CurrentUserContext from '../contexts/CurrentUserContext';
 import { validateLength } from './../utils/utils';
 
 function EditProfilePopup({ isOpen, onClose, onUpdateUser, showLoader }) {
-  const currentUser = React.useContext(CurrentUserContext);
+  const currentUser = useContext(CurrentUserContext);
 
   const inputs = [
     {

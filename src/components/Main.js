@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Card from './Card';
 
 import CurrentUserContext from '../contexts/CurrentUserContext';
@@ -15,7 +15,7 @@ function Main({
   onCardDelete,
   onCardLike,
 }) {
-  const currentUser = React.useContext(CurrentUserContext);
+  const currentUser = useContext(CurrentUserContext);
 
   function handleCardLike(card) {
     onCardLike(card);

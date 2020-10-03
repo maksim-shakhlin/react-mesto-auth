@@ -4,9 +4,10 @@
   padding: 40px 0;
   border-bottom: solid 1px rgba(84, 84, 84, 0.7);
   display: none;
+  max-width: 100%;
 }
 
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 646px) {
   .header__menu_place_top {
     display: flex;
   }

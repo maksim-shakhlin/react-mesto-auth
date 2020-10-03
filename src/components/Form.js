@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo, useEffect, useRef, useCallback } from 'react';
 
 import Input from './Input';
 import Loader from './Loader';
@@ -6,7 +6,7 @@ import { useFormWithValidation } from './../hooks/useForm';
 import { errorsDictionaries } from './../utils/constants';
 import { omit } from './../utils/utils';
 
-const Form = React.memo(
+const Form = memo(
   ({
     name,
     title,
@@ -39,7 +39,7 @@ const Form = React.memo(
       default: errorsDictionaries.default,
     };
 
-    const firstInput = React.useRef(null);
+    const firstInput = useRef(null);
 
     if (inputs) {
       inputs[0].ref = firstInput;
@@ -53,11 +53,11 @@ const Form = React.memo(
       resetForm,
     } = useFormWithValidation(errorsDict, extraValidators);
 
-    const _resetForm = React.useCallback(() => {
+    const _resetForm = useCallback(() => {
       resetForm(initialState.values, initialState.errors, initialState.valid);
     }, [resetForm, initialState]);
 
-    React.useEffect(() => {
+    useEffect(() => {
       if (!showLoader && reset) {
         if (resetDelay) {
           setTimeout(() => _resetForm(), resetDelay);
@@ -67,7 +67,7 @@ const Form = React.memo(
       }
     }, [resetForm, showLoader, reset, resetDelay, _resetForm]);
 
-    React.useEffect(() => {
+    useEffect(() => {
       if (firstInput.current && setFocus) {
         firstInput.current.focus();
       }

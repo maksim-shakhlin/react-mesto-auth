@@ -1,10 +1,7 @@
-import React from 'react';
+import React, { memo } from 'react';
 import Popup from './Popup';
 
-import succesIcon from '../images/tooltip/success.svg';
-import failureIcon from '../images/tooltip/failure.svg';
-
-const InfoTooltip = React.memo(({ onClose, isOpen, isSuccess }) => {
+const InfoTooltip = memo(({ onClose, isOpen, status = {} }) => {
   return (
     <Popup
       onClose={onClose}
@@ -14,16 +11,14 @@ const InfoTooltip = React.memo(({ onClose, isOpen, isSuccess }) => {
         button: 'popup__close-button_for_tooltip',
       }}
     >
-      <img
-        src={isSuccess ? succesIcon : failureIcon}
-        className="tooltip__icon"
-        alt={isSuccess ? 'ОК' : 'Неудача'}
-      />
-      <p className="tooltip__text">
-        {isSuccess
-          ? 'Вы успешно зарегистрировались!'
-          : 'Что-то пошло не так! Попробуйте ещё раз.'}
-      </p>
+      {status.icon && (
+        <img
+          src={status.icon}
+          className="tooltip__icon"
+          alt={status.alt || ''}
+        />
+      )}
+      <p className="tooltip__text">{status.text || ''}</p>
     </Popup>
   );
 });

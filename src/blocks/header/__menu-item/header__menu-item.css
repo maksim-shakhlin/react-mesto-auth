@@ -4,4 +4,6 @@
   line-height: 1.23;
   font-weight: normal;
   margin: 6px 0 0;
+  text-align: center;
+  word-break: break-all;
 }

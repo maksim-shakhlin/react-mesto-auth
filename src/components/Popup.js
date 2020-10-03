@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { memo, useEffect } from 'react';
 
-const Popup = React.memo(({ isOpen, children, extraClasses = {}, onClose }) => {
+const Popup = memo(({ isOpen, children, extraClasses = {}, onClose }) => {
   function closeOnEscape(event) {
     if (event.key === 'Escape') {
       onClose();
@@ -13,7 +13,7 @@ const Popup = React.memo(({ isOpen, children, extraClasses = {}, onClose }) => {
     }
   }
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (isOpen) {
       document.addEventListener('keydown', closeOnEscape);
 

@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import CurrentUserContext from '../contexts/CurrentUserContext';
 import errorCard from '../images/card/error-image.svg';
 
 function Card({ card, onCardClick, onLikeClick, onCardDelete }) {
-  const currentUser = React.useContext(CurrentUserContext);
+  const currentUser = useContext(CurrentUserContext);
   const likedClass = card.likes.some((item) => item._id === currentUser._id)
     ? ' card__like-button_liked'
     : '';

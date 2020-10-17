@@ -1,6 +1,8 @@
-import React, { memo, useEffect } from 'react';
+import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
-const Popup = memo(({ isOpen, children, extraClasses = {}, onClose }) => {
+function Popup({ isOpen, children, extraClasses, onClose }) {
   function closeOnEscape(event) {
     if (event.key === 'Escape') {
       onClose();
@@ -25,19 +27,27 @@ const Popup = memo(({ isOpen, children, extraClasses = {}, onClose }) => {
 
   return (
     <section
-      className={`popup${isOpen ? ' popup_opened' : ''}`}
+      className={classNames('popup', { popup_opened: isOpen })}
       onMouseDown={closeOnOverlayClick}
     >
-      <div className={`popup__container ${extraClasses.container || ''}`}>
+      <div className={classNames('popup__container', extraClasses.container)}>
         {children}
         <button
           type="button"
-          className={`popup__close-button ${extraClasses.button || ''}`}
+          className={classNames('popup__close-button', extraClasses.button)}
           onClick={onClose}
         />
       </div>
     </section>
   );
-});
+}
+
+Popup.defaultProps = {
+  extraClasses: {},
+};
+
+Popup.propTypes = {
+  extraClasses: PropTypes.objectOf(PropTypes.string),
+};
 
 export default Popup;

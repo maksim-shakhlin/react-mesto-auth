@@ -18,10 +18,7 @@ class Auth {
     this._headers = options.headers;
   }
 
-  _request(tag, method, data = { headers: {}, body: {} }) {
-    if (!method) {
-      method = 'GET';
-    }
+  _request(tag, method = 'GET', data = { headers: {}, body: {} }) {
     const options = {
       method: method,
       headers: Object.assign(this._headers, data.headers),

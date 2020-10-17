@@ -1,23 +1,28 @@
 import React, { memo } from 'react';
+import classNames from 'classnames';
 
-const Menu = memo(({ isDefault = true, email, onLogout }) => {
+const Menu = memo(({ isDefault, email, onLogout }) => {
   return (
     <>
       <p
-        className={`header__menu-item${
-          isDefault
-            ? ' header__menu-item_place_default header__menu-item_scalable'
-            : ' header__menu-item_place_top'
-        }`}
+        className={classNames(
+          'header__menu-item',
+          {
+            'header__menu-item_place_default header__menu-item_scalable': isDefault,
+          },
+          { 'header__menu-item_place_top': !isDefault }
+        )}
       >
         {email}
       </p>
       <button
-        className={`header__menu-item header__menu-item_type_button${
-          isDefault
-            ? ' header__menu-item_place_default header__menu-item_scalable'
-            : ' header__menu-item_place_top'
-        }`}
+        className={classNames(
+          'header__menu-item header__menu-item_type_button',
+          {
+            'header__menu-item_place_default header__menu-item_scalable': isDefault,
+          },
+          { 'header__menu-item_place_top': !isDefault }
+        )}
         onClick={onLogout}
       >
         Выйти
@@ -25,5 +30,9 @@ const Menu = memo(({ isDefault = true, email, onLogout }) => {
     </>
   );
 });
+
+Menu.defaultProps = {
+  isDefault: true,
+};
 
 export default Menu;

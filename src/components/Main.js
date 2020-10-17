@@ -28,31 +28,29 @@ function Main({
   return (
     <main className="content page__content unit page__unit container container_mobile-wide">
       <section className="profile content__profile unit">
-        {currentUser && (
-          <>
-            <div className="profile__avatar-container" onClick={onEditAvatar}>
-              <img
-                src={currentUser.avatar || defaultAvatar}
-                alt="Аватар пользователя"
-                className="profile__avatar"
-                onError={(e) => {
-                  e.target.onError = null;
-                  e.target.src = errorAvatar;
-                }}
-              />
-              <div className="profile__avatar-overlay" />
-            </div>
-            <div className="profile__info">
-              <h1 className="profile__name">{currentUser.name}</h1>
-              <button
-                type="button"
-                className="profile__edit-button"
-                onClick={onEditProfile}
-              />
-              <p className="profile__about">{currentUser.about}</p>
-            </div>{' '}
-          </>
-        )}
+        <>
+          <div className="profile__avatar-container" onClick={onEditAvatar}>
+            <img
+              src={currentUser.avatar || defaultAvatar}
+              alt="Аватар пользователя"
+              className="profile__avatar"
+              onError={(e) => {
+                e.target.onError = null;
+                e.target.src = errorAvatar;
+              }}
+            />
+            <div className="profile__avatar-overlay" />
+          </div>
+          <div className="profile__info">
+            <h1 className="profile__name">{currentUser.name}</h1>
+            <button
+              type="button"
+              className="profile__edit-button"
+              onClick={onEditProfile}
+            />
+            <p className="profile__about">{currentUser.about}</p>
+          </div>{' '}
+        </>
         <button
           type="button"
           className="profile__add-button"

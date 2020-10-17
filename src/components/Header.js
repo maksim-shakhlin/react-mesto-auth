@@ -1,5 +1,6 @@
 import React, { memo } from 'react';
 import { Link, Route, Switch } from 'react-router-dom';
+import classNames from 'classnames';
 
 import logo from '../images/logo/mesto.svg';
 
@@ -43,15 +44,17 @@ const Header = memo(
               <div className="header__menu">
                 <Menu email={email} onLogout={onLogout} />
                 <button
-                  className={`header__button header__button_type_open${
-                    showTopMenu ? ' header__button_invisible' : ''
-                  }`}
+                  className={classNames(
+                    'header__button header__button_type_open',
+                    { header__button_invisible: showTopMenu }
+                  )}
                   onClick={onShowMenu}
                 />
                 <button
-                  className={`header__button header__button_type_close${
-                    !showTopMenu ? ' header__button_invisible' : ''
-                  }`}
+                  className={classNames(
+                    'header__button header__button_type_close',
+                    { header__button_invisible: !showTopMenu }
+                  )}
                   onClick={onHideMenu}
                 />
               </div>

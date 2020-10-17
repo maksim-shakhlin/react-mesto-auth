@@ -10,7 +10,7 @@ function Auth({
   title,
   action,
   loaderAction,
-  autoComplete = 'off',
+  autoComplete,
 }) {
   const inputs = [
     {
@@ -57,5 +57,9 @@ function Auth({
     </main>
   );
 }
+
+Auth.defaultProps = {
+  autoComplete: 'off',
+};
 
 export default Auth;

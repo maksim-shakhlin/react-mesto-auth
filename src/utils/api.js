@@ -6,10 +6,7 @@ class Api {
     this._headers = options.headers;
   }
 
-  _request(tag, method, body) {
-    if (!method) {
-      method = 'GET';
-    }
+  _request(tag, method = 'GET', body) {
     const options = { method: method, headers: this._headers };
     if (body) {
       Object.assign(options, { body: JSON.stringify(body) });

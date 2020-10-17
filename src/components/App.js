@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Route, Switch, Redirect, useHistory } from 'react-router-dom';
+import classNames from 'classnames';
+
 import Header from './Header';
 import Main from './Main';
 import Footer from './Footer';
@@ -100,13 +102,13 @@ function App() {
       .catch((error) => handleError(error));
   }
 
-  function handleUpdateAvatar(avatar) {
+  function handleUpdateAvatar(data) {
     setShowEditAvatarLoader(true);
     api
-      .setAvatar(cleanData({ avatar }))
-      .then((a) => {
+      .setAvatar(cleanData(data))
+      .then((user) => {
         setEditAvatarPopupOpen(false);
-        setCurrentUser(a);
+        setCurrentUser(user);
       })
       .catch((error) => handleError(error))
       .finally(() => {
@@ -254,13 +256,12 @@ function App() {
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div
-        className={`page${
-          showTopMenu === undefined
-            ? ''
-            : showTopMenu
-            ? ' rolling-down'
-            : ' page_rolled_up rolling-up'
-        }`}
+        className={classNames(
+          'page',
+          { 'rolling-down': showTopMenu },
+          /* no extra classes when showTopMenu is undefined */
+          { 'page_rolled_up rolling-up': showTopMenu === false }
+        )}
       >
         <Header
           onShowMenu={handleShowMenu}
@@ -335,7 +336,7 @@ function App() {
       />
       <InfoTooltip
         onClose={handleCloseTooltip}
-        status={statuses[tooltipStatus]}
+        {...statuses[tooltipStatus]}
         isOpen={isTooltipOpen}
       />
     </CurrentUserContext.Provider>

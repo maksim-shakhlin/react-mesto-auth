@@ -46,7 +46,7 @@ export const statuses = [
   {
     icon: failureIcon,
     alt: 'Пользователь не найден',
-    text: 'Неправильный email или пароль.',
+    text: 'Неправильный email или\xa0пароль.',
   },
 ];
 

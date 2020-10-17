@@ -1,7 +1,7 @@
 import React, { memo } from 'react';
 import Popup from './Popup';
 
-const InfoTooltip = memo(({ onClose, isOpen, status = {} }) => {
+const InfoTooltip = memo(({ onClose, isOpen, icon, alt, text }) => {
   return (
     <Popup
       onClose={onClose}
@@ -11,14 +11,8 @@ const InfoTooltip = memo(({ onClose, isOpen, status = {} }) => {
         button: 'popup__close-button_for_tooltip',
       }}
     >
-      {status.icon && (
-        <img
-          src={status.icon}
-          className="tooltip__icon"
-          alt={status.alt || ''}
-        />
-      )}
-      <p className="tooltip__text">{status.text || ''}</p>
+      {icon && <img src={icon} className="tooltip__icon" alt={alt || ''} />}
+      <p className="tooltip__text">{text || ''}</p>
     </Popup>
   );
 });

@@ -5,16 +5,18 @@ const ProtectedRoute = ({
   component: Component,
   path,
   condition,
-  redirect = 'sign-in',
+  redirect,
   ...props
 }) => {
   return (
     <Route path={path}>
-      {() =>
-        condition ? <Component {...props} /> : <Redirect to={redirect} />
-      }
+      {condition ? <Component {...props} /> : <Redirect to={redirect} />}
     </Route>
   );
+};
+
+ProtectedRoute.defaultProps = {
+  redirect: '/sign-in',
 };
 
 export default ProtectedRoute;

@@ -1,25 +1,35 @@
-import React, { memo } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
-const Input = memo(({ props, error, value, onChange, extraClasses = {} }) => {
+function Input({ props, error, value, onChange, extraClasses }) {
   return (
-    <label className={`form__field ${extraClasses.label || ''}`}>
+    <label className={classNames('form__field', extraClasses.label)}>
       <input
         {...props}
-        className={`form__input${error ? ' form__input_invalid' : ''} ${
-          extraClasses.input || ''
-        }`}
+        className={classNames('form__input', extraClasses.input, {
+          form__input_invalid: error,
+        })}
         onChange={onChange}
         value={value || ''}
       />
       <span
-        className={`form__input-error${
-          error ? ' form__input-error_visible' : ''
-        } ${extraClasses.span || ''}`}
+        className={classNames('form__input-error', extraClasses.span, {
+          'form__input-error_visible': error,
+        })}
       >
         {error || ''}
       </span>
     </label>
   );
-});
+}
+
+Input.defaultProps = {
+  extraClasses: {},
+};
+
+Input.propTypes = {
+  extraClasses: PropTypes.objectOf(PropTypes.string),
+};
 
 export default Input;

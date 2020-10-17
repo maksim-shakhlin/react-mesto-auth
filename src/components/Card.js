@@ -1,13 +1,13 @@
 import React, { useContext } from 'react';
+import classNames from 'classnames';
+
 import CurrentUserContext from '../contexts/CurrentUserContext';
 import errorCard from '../images/card/error-image.svg';
 
 function Card({ card, onCardClick, onLikeClick, onCardDelete }) {
   const currentUser = useContext(CurrentUserContext);
-  const likedClass = card.likes.some((item) => item._id === currentUser._id)
-    ? ' card__like-button_liked'
-    : '';
-  card.liked = !!likedClass;
+
+  card.liked = card.likes.some((item) => item._id === currentUser._id);
 
   function handleClick() {
     onCardClick(card);
@@ -46,7 +46,9 @@ function Card({ card, onCardClick, onLikeClick, onCardDelete }) {
         <div className="card__info">
           <h2 className="card__title">{card.name}</h2>
           <div
-            className={`card__like-button${likedClass}`}
+            className={classNames('card__like-button', {
+              'card__like-button_liked': card.liked,
+            })}
             tabIndex="0"
             onClick={handleLikeClick}
           >

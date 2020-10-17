@@ -3,7 +3,7 @@ import PopupWithForm from './PopupWithForm';
 import CurrentUserContext from '../contexts/CurrentUserContext';
 import { validateLength } from './../utils/utils';
 
-function EditProfilePopup({ isOpen, onClose, onUpdateUser, showLoader }) {
+function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
   const currentUser = useContext(CurrentUserContext);
 
   const inputs = [
@@ -33,14 +33,19 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser, showLoader }) {
   const form = {
     name: 'profile',
     title: 'Редактировать профиль',
-    onSubmit: onUpdateUser,
-    showLoader: showLoader,
     initialState: { values: currentUser, errors: {}, valid: true },
     inputs: inputs,
     reset: !isOpen,
   };
 
-  return <PopupWithForm isOpen={isOpen} onClose={onClose} form={form} />;
+  return (
+    <PopupWithForm
+      isOpen={isOpen}
+      onClose={onClose}
+      form={form}
+      onSubmit={onUpdateUser}
+    />
+  );
 }
 
 export default EditProfilePopup;

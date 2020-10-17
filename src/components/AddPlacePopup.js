@@ -2,7 +2,7 @@ import React from 'react';
 import PopupWithForm from './PopupWithForm';
 import { validateLength } from './../utils/utils';
 
-function AddPlacePopup({ isOpen, onClose, onAddPlace, showLoader }) {
+function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
   const inputs = [
     {
       name: 'name',
@@ -26,16 +26,21 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace, showLoader }) {
   const form = {
     name: 'place',
     title: 'Новое место',
-    onSubmit: onAddPlace,
     action: 'Создать',
     loaderAction: 'Создание',
-    showLoader: showLoader,
     initialState: { values: {}, errors: {}, valid: false },
     inputs: inputs,
     reset: !isOpen,
   };
 
-  return <PopupWithForm isOpen={isOpen} onClose={onClose} form={form} />;
+  return (
+    <PopupWithForm
+      isOpen={isOpen}
+      onClose={onClose}
+      form={form}
+      onSubmit={onAddPlace}
+    />
+  );
 }
 
 export default AddPlacePopup;

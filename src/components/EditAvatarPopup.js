@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import PopupWithForm from './PopupWithForm';
 import CurrentUserContext from '../contexts/CurrentUserContext';
 
-function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar, showLoader }) {
+function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar }) {
   const currentUser = useContext(CurrentUserContext);
   const inputs = [
     {
@@ -17,13 +17,19 @@ function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar, showLoader }) {
   const form = {
     name: 'avatar',
     title: 'Обновить аватар',
-    onSubmit: onUpdateAvatar,
-    showLoader: showLoader,
+
     initialState: { values: currentUser, errors: {}, valid: true },
     inputs: inputs,
   };
 
-  return <PopupWithForm isOpen={isOpen} onClose={onClose} form={form} />;
+  return (
+    <PopupWithForm
+      isOpen={isOpen}
+      onClose={onClose}
+      form={form}
+      onSubmit={onUpdateAvatar}
+    />
+  );
 }
 
 export default EditAvatarPopup;

@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-function Popup({ isOpen, children, extraClasses, onClose }) {
+function Popup({ isOpen, children, extraClasses, onClose, domNode }) {
   function closeOnEscape(event) {
     if (event.key === 'Escape') {
       onClose();
@@ -25,7 +26,7 @@ function Popup({ isOpen, children, extraClasses, onClose }) {
     }
   });
 
-  return (
+  return createPortal(
     <section
       className={classNames('popup', { popup_opened: isOpen })}
       onMouseDown={closeOnOverlayClick}
@@ -38,12 +39,14 @@ function Popup({ isOpen, children, extraClasses, onClose }) {
           onClick={onClose}
         />
       </div>
-    </section>
+    </section>,
+    domNode
   );
 }
 
 Popup.defaultProps = {
   extraClasses: {},
+  domNode: document.getElementById('modal'),
 };
 
 Popup.propTypes = {

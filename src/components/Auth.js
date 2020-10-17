@@ -1,17 +1,38 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Form from './Form';
+import InfoTooltip from './InfoTooltip';
+
+import { statuses } from '../utils/constants';
 
 function Auth({
   onSubmit,
-  showLoader,
   link,
   linkText,
   title,
   action,
   loaderAction,
   autoComplete,
+  tooltipStatus,
+  isTooltipOpen,
+  onTooltipClose,
+  stopLoader,
 }) {
+  const [showLoader, setShowLoader] = useState(false);
+
+  function handleSubmit(data) {
+    setShowLoader(true);
+    onSubmit(data)
+      .catch((err) => {
+        setShowLoader(false);
+      })
+      .finally(() => {
+        if (stopLoader) {
+          setShowLoader(false);
+        }
+      });
+  }
+
   const inputs = [
     {
       name: 'email',
@@ -41,7 +62,7 @@ function Auth({
       <Form
         name="login"
         title={title}
-        onSubmit={onSubmit}
+        onSubmit={handleSubmit}
         action={action}
         loaderAction={loaderAction}
         inputs={inputs}
@@ -54,12 +75,18 @@ function Auth({
           {linkText}
         </Link>
       </p>
+      <InfoTooltip
+        onClose={onTooltipClose}
+        {...statuses[tooltipStatus]}
+        isOpen={isTooltipOpen}
+      />
     </main>
   );
 }
 
 Auth.defaultProps = {
   autoComplete: 'off',
+  stopLoader: true,
 };
 
 export default Auth;

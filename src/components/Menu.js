@@ -1,8 +1,10 @@
-import React, { memo } from 'react';
+import React, { memo, useContext } from 'react';
 import classNames from 'classnames';
+import CurrentUserContext from '../contexts/CurrentUserContext';
 
-const Menu = memo(({ isDefault, email, onLogout }) => {
-  return (
+const Menu = memo(({ isDefault, onLogout }) => {
+  const currentUser = useContext(CurrentUserContext);
+  return currentUser ? (
     <>
       <p
         className={classNames(
@@ -13,7 +15,7 @@ const Menu = memo(({ isDefault, email, onLogout }) => {
           { 'header__menu-item_place_top': !isDefault }
         )}
       >
-        {email}
+        {currentUser.email}
       </p>
       <button
         className={classNames(
@@ -28,6 +30,8 @@ const Menu = memo(({ isDefault, email, onLogout }) => {
         Выйти
       </button>
     </>
+  ) : (
+    ''
   );
 });
 

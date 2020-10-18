@@ -18,7 +18,11 @@ function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar }) {
     name: 'avatar',
     title: 'Обновить аватар',
 
-    initialState: { values: currentUser, errors: {}, valid: true },
+    initialState: {
+      values: { avatar: currentUser.avatar },
+      errors: {},
+      valid: currentUser.avatar,
+    },
     inputs: inputs,
   };
 

@@ -3,10 +3,12 @@
 @import url(./__header/page__header.css);
 @import url(./__content/page__content.css);
 @import url(./__footer/page__footer.css);
+@import url(./__cap/page__cap.css);
+@import url(./__bar/page__bar.css);
 
 .page {
   margin: auto;
-  max-width: calc(3 * var(--card-width) + 2 * var(--cards-col-gap));
+
   min-width: 300px;
   min-height: 100vh;
   display: flex;
@@ -20,7 +22,6 @@
 @media screen and (max-width: 945px) {
   .page {
     margin: 0;
-    max-width: unset;
   }
 }
 

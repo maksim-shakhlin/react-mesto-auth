@@ -7,7 +7,7 @@ import errorCard from '../images/card/error-image.svg';
 function Card({ card, onCardClick, onLikeClick, onCardDelete }) {
   const currentUser = useContext(CurrentUserContext);
 
-  card.liked = card.likes.some((item) => item._id === currentUser._id);
+  card.liked = card.likes.some((item) => item === currentUser._id);
 
   function handleClick() {
     onCardClick(card);
@@ -34,7 +34,7 @@ function Card({ card, onCardClick, onLikeClick, onCardDelete }) {
           }}
           onClick={handleClick}
         />
-        {card.owner._id === currentUser._id ? (
+        {card.owner === currentUser._id ? (
           <button
             type="button"
             className="card__delete-button"

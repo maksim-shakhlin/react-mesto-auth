@@ -1,5 +1,11 @@
 import { apiOptions } from './constants';
 
+class ErrorWithCode extends Error {
+  constructor(code = 500, message = '', ...args) {
+    super(message, ...args);
+    this.code = code;
+  }
+}
 class Api {
   constructor(options) {
     this._baseUrl = options.baseUrl;
@@ -7,16 +13,25 @@ class Api {
   }
 
   _request(tag, method = 'GET', body) {
-    const options = { method: method, headers: this._headers };
+    const options = {
+      method: method,
+      headers: this._headers,
+      credentials: 'include',
+    };
     if (body) {
       Object.assign(options, { body: JSON.stringify(body) });
     }
     return fetch(this._baseUrl + tag, options).then((response) => {
       if (response.ok) {
-        return response.json();
+        if (response.status !== 204) {
+          return response.json();
+        }
       } else {
         return Promise.reject(
-          new Error(`Ошибка: ${response.status} (${response.statusText})`)
+          new ErrorWithCode(
+            response.status,
+            `Ошибка: ${response.status} (${response.statusText})`
+          )
         );
       }
     });
@@ -26,7 +41,7 @@ class Api {
     return this._request('/users/me');
   }
 
-  getInitialCards() {
+  getCards() {
     return this._request('/cards');
   }
 
@@ -48,14 +63,22 @@ class Api {
 
   changeLikeCardStatus(cardId, newStatus) {
     if (newStatus) {
-      return this._request(`/cards/likes/${cardId}`, 'PUT');
+      return this._request(`/cards/${cardId}/likes`, 'PUT');
     } else {
-      return this._request(`/cards/likes/${cardId}`, 'DELETE');
+      return this._request(`/cards/${cardId}/likes`, 'DELETE');
     }
   }
 
-  setToken(token) {
-    this._headers.authorization = `Bearer ${token}`;
+  register(data) {
+    return this._request('/signup', 'POST', data);
+  }
+
+  authorize(data) {
+    return this._request('/signin', 'POST', data);
+  }
+
+  logout(data) {
+    return this._request('/logout', 'POST', data);
   }
 }
 

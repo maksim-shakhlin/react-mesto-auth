@@ -2,7 +2,6 @@
 @import url(./vendor/fonts.css);
 @import url(./blocks/root/root.css);
 @import url(./blocks/page/page.css);
-@import url(./blocks/page/_rolled/page_rolled_up.css);
 @import url(./blocks/unit/unit.css);
 @import url(./blocks/container/container.css);
 @import url(./blocks/container/_mobile-wide/container_mobile-wide.css);
@@ -19,6 +18,7 @@
 @import url(./blocks/form/_place/form_place_content.css);
 @import url(./blocks/figure/figure.css);
 @import url(./blocks/loading/loading.css);
+@import url(./blocks/progressing/progressing.css);
 @import url(./blocks/loader/loader.css);
 @import url(./blocks/rolling/rolling.css);
 @import url(./blocks/tooltip/tooltip.css);

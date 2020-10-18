@@ -40,7 +40,6 @@ function Form({
 
   if (inputs) {
     inputs[0].ref = firstInput;
-    // inputs.onFocus = 'this.value = this.value;';
   }
 
   const {

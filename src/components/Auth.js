@@ -45,6 +45,8 @@ function Auth({
       name: 'password',
       type: 'password',
       required: true,
+      minLength: 6,
+      pattern: '[0-9a-zA-Z!@#$%^&*()-_+=;:,./?\\|`~[\\]{}<>"\']{1,}',
       placeholder: 'Пароль',
       autoComplete: autoComplete,
     },
@@ -60,7 +62,7 @@ function Auth({
   return (
     <main className="content page__content unit page__unit container">
       <Form
-        name="login"
+        name="auth"
         title={title}
         onSubmit={handleSubmit}
         action={action}

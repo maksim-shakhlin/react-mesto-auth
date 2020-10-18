@@ -1,0 +1,12 @@
+@keyframes moving {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 20px 20px;
+  }
+}
+
+.progressing {
+  animation: moving 0.5s linear infinite;
+}

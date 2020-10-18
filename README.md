@@ -1,9 +1,11 @@
 ![](https://i.ibb.co/FDhv9CR/readme-header-pic.png)
-# Mesto Russia
-### Описание
-Сайт, где пользователи делятся карточками из любимых мест.
-### Технологии
-Написано на React, верстка по БЭМ.
+# react-mesto-auth
 
-------------
-[Посмотреть](https://maksim-shakhlin.github.io/react-mesto-auth/ "Посмотреть")
+## Описание
+Фронтенд проекта Mesto, где пользователи делятся карточками из любимых мест. Написано на React, верстка по БЭМ.
+
+## API
+Репозиторий бэкенда на Express: [react-mesto-api-full](https://github.com/maksim-shakhlin/react-mesto-api-full/)
+
+## Деплой
+Сайт на Яндекс.Облаке: [maks.students.nomoreparties.xyz](https://maks.students.nomoreparties.xyz/)

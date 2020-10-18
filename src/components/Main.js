@@ -6,6 +6,8 @@ import EditAvatarPopup from './EditAvatarPopup';
 import PopupWithForm from './PopupWithForm';
 import ImagePopup from './ImagePopup';
 
+import classNames from 'classnames';
+
 import api from '../utils/api';
 
 import { usePopup } from '../hooks/usePopup';
@@ -74,13 +76,21 @@ function Main({
             <div className="profile__avatar-overlay" />
           </div>
           <div className="profile__info">
-            <h1 className="profile__name">{currentUser.name}</h1>
+            <h1
+              className={classNames('profile__name', {
+                profile__name_type_cap: !currentUser.name,
+              })}
+            >
+              {currentUser.name || 'Имя'}
+            </h1>
             <button
               type="button"
               className="profile__edit-button"
               onClick={editProfile.open}
             />
-            <p className="profile__about">{currentUser.about}</p>
+            {currentUser.about && (
+              <p className="profile__about">{currentUser.about}</p>
+            )}
           </div>{' '}
         </>
         <button
@@ -104,37 +114,42 @@ function Main({
           onUpdateAvatar={onUpdateAvatar}
         />
       </section>
-      {cards && (
-        <section className="cards unit">
-          <ul className="cards__list">
-            {cards.map((card) => (
-              <Card
-                card={card}
-                key={card._id}
-                onCardClick={handleCardClick}
-                onLikeClick={onCardLike}
-                onCardDelete={handleCardDeleteClick}
-              />
-            ))}
-          </ul>
-          <PopupWithForm
-            isOpen={confirmDelete.isOpen}
-            onClose={confirmDelete.close}
-            form={{
-              name: 'confirm-delete',
-              title: 'Вы уверены?',
-              action: 'Да',
-              loaderAction: 'Удаление',
-            }}
-            onSubmit={handleCardDelete}
-          />
-          <ImagePopup
-            card={selectedCard}
-            onClose={handleCloseImagePopup}
-            isOpen={imagePopup.isOpen}
-          />
-        </section>
-      )}
+
+      <section className="cards unit">
+        {cards.length ? (
+          <>
+            <ul className="cards__list">
+              {cards.map((card) => (
+                <Card
+                  card={card}
+                  key={card._id}
+                  onCardClick={handleCardClick}
+                  onLikeClick={onCardLike}
+                  onCardDelete={handleCardDeleteClick}
+                />
+              ))}
+            </ul>
+          </>
+        ) : (
+          <p className="cards__cap">Пока еще никто не&nbsp;загрузил карточки</p>
+        )}
+        <PopupWithForm
+          isOpen={confirmDelete.isOpen}
+          onClose={confirmDelete.close}
+          form={{
+            name: 'confirm-delete',
+            title: 'Вы уверены?',
+            action: 'Да',
+            loaderAction: 'Удаление',
+          }}
+          onSubmit={handleCardDelete}
+        />
+        <ImagePopup
+          card={selectedCard}
+          onClose={handleCloseImagePopup}
+          isOpen={imagePopup.isOpen}
+        />
+      </section>
     </main>
   );
 }

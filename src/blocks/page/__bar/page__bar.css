@@ -1,0 +1,16 @@
+.page__bar {
+  height: 4px;
+  width: 100%;
+  background: repeating-linear-gradient(
+    -45deg,
+    #444,
+    #444 25%,
+    transparent 25%,
+    transparent 50%,
+    #444 50%,
+    #444 75%,
+    transparent 75%,
+    transparent
+  );
+  background-size: 20px 20px;
+}

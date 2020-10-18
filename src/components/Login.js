@@ -1,21 +1,22 @@
 import React, { useState } from 'react';
 import Auth from './Auth';
 
-import { status } from '../utils/constants';
+import { statusEnum } from '../utils/constants';
 import { handleError } from '../utils/utils';
 
 function Login({ onLogin }) {
-  const [tooltipStatus, setTooltipStatus] = useState(status.UNSET);
+  const [tooltipStatus, setTooltipStatus] = useState(statusEnum.UNSET);
   const [isTooltipOpen, setTooltipOpen] = useState(false);
 
   function handleLogin(data) {
     return onLogin(data).catch((error) => {
       handleError(error);
       if (error.code === 401) {
-        setTooltipStatus(status.NO_USER);
-        setTooltipOpen(true);
-        throw error;
+        setTooltipStatus(statusEnum.NO_USER);
+      } else {
+        setTooltipStatus(statusEnum.COMMON_FAIL);
       }
+      setTooltipOpen(true);
     });
   }
 
@@ -35,7 +36,6 @@ function Login({ onLogin }) {
       tooltipStatus={tooltipStatus}
       isTooltipOpen={isTooltipOpen}
       onTooltipClose={handleCloseTooltip}
-      stopLoader={false}
     />
   );
 }

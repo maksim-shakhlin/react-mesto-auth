@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Route, Switch, Redirect, useHistory } from 'react-router-dom';
-import classNames from 'classnames';
 
 import Header from './Header';
 import Main from './Main';
@@ -13,18 +12,13 @@ import CurrentUserContext from '../contexts/CurrentUserContext';
 
 import { handleError, cleanData } from '../utils/utils';
 import api from '../utils/api';
-import auth from '../utils/auth';
+import { userStateEnum } from './../utils/constants';
 
 function App() {
   const history = useHistory();
-  const [showTopMenu, setShowTopMenu] = useState(undefined);
 
-  const [currentUser, setCurrentUser] = useState({});
-
+  const [currentUser, setCurrentUser] = useState(userStateEnum.UNSET);
   const [cards, setCards] = useState([]);
-  const [email, setEmail] = useState('');
-
-  const [isLoggedIn, setLoggedIn] = useState(false);
 
   function handleUpdateUser(data) {
     return api.setUserInfo(cleanData(data)).then((user) => {
@@ -54,87 +48,50 @@ function App() {
     });
   }
 
-  function handleShowMenu() {
-    setShowTopMenu(true);
-  }
-
-  function handleHideMenu() {
-    setShowTopMenu(false);
-  }
-
   function getData() {
-    Promise.all([api.getUser(), api.getInitialCards()])
+    Promise.all([api.getUser(), api.getCards()])
       .then(([user, cards]) => {
         setCurrentUser(user);
         setCards(cards);
-      })
-      .catch((error) => handleError(error));
-  }
-
-  function validateToken(token) {
-    auth
-      .checkToken(token)
-      .then((res) => {
-        setLoggedIn(true);
-        setEmail(res.data.email);
-        localStorage.setItem('jwt', token);
         history.push('/');
       })
       .catch((error) => {
-        if (error.code === 401) {
-          localStorage.removeItem('jwt');
-          return;
-        }
         handleError(error);
+        if (error.code === 401) {
+          setCurrentUser(userStateEnum.NONE);
+        } else {
+          setCurrentUser(userStateEnum.ERROR);
+        }
       });
   }
 
   function handleLogin(data) {
-    return auth.authorize(data).then((res) => {
-      if (res.token) {
-        validateToken(res.token);
-      }
+    setCurrentUser(userStateEnum.CAST);
+    return api.authorize(data).then(() => {
+      getData();
     });
   }
-
-  useEffect(() => {
-    const jwt = localStorage.getItem('jwt');
-    if (jwt) {
-      validateToken(jwt);
-    }
-  }, []);
 
   useEffect(() => {
     getData();
   }, []);
 
   function handleLogout() {
-    setShowTopMenu();
-    setLoggedIn(false);
-    setEmail('');
-    localStorage.removeItem('jwt');
+    api
+      .logout({ _id: currentUser._id })
+      .then(() => setCurrentUser(userStateEnum.NONE))
+      .catch((error) => {
+        handleError(error);
+      });
   }
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
-      <div
-        className={classNames(
-          'page',
-          { 'rolling-down': showTopMenu },
-          /* no extra classes when showTopMenu is undefined */
-          { 'page_rolled_up rolling-up': showTopMenu === false }
-        )}
-      >
-        <Header
-          onShowMenu={handleShowMenu}
-          onHideMenu={handleHideMenu}
-          showTopMenu={showTopMenu}
-          onLogout={handleLogout}
-          email={email}
-        />
+      <div className="page">
+        <Header onLogout={handleLogout} />
         <Switch>
           <ProtectedRoute
-            condition={isLoggedIn}
+            value={currentUser}
             exact
             path="/"
             component={Main}
@@ -145,12 +102,19 @@ function App() {
             onUpdateAvatar={handleUpdateAvatar}
             onAddPlace={handleAddPlace}
           />
-          <Route path="/sign-in">
-            <Login onLogin={handleLogin} />
-          </Route>
-          <Route path="/sign-up">
-            <Register />
-          </Route>
+          <ProtectedRoute
+            value={currentUser}
+            path="/sign-in"
+            shouldRedirect={false}
+            component={Login}
+            onLogin={handleLogin}
+          />
+          <ProtectedRoute
+            value={currentUser}
+            path="/sign-up"
+            shouldRedirect={false}
+            component={Register}
+          />
           <Route path="*">
             <Redirect to="/" />
           </Route>

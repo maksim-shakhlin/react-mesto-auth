@@ -1,10 +1,19 @@
-import React, { memo } from 'react';
+import React, { memo, useContext } from 'react';
+
+import CurrentUserContext from '../contexts/CurrentUserContext';
+import { userStateEnum } from '../utils/constants';
 
 const Footer = memo(() => {
-  return (
+  const currentUser = useContext(CurrentUserContext);
+  const year = new Date().getFullYear();
+  const tag = year - 2020 ? `—${year}` : '';
+
+  return ![userStateEnum.ERROR, userStateEnum.UNSET].includes(currentUser) ? (
     <footer className="footer page__footer unit page__unit container">
-      &copy; 2020 Mesto Russia
+      {`© 2020${tag} Mesto Russia`}
     </footer>
+  ) : (
+    ''
   );
 });
 

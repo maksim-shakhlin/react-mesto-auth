@@ -2,31 +2,31 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import Auth from './Auth';
 
-import { status } from '../utils/constants';
+import { statusEnum } from '../utils/constants';
 import { handleError } from '../utils/utils';
-import auth from '../utils/auth';
+import api from '../utils/api';
 
 function Register() {
-  const [tooltipStatus, setTooltipStatus] = useState(status.UNSET);
+  const [tooltipStatus, setTooltipStatus] = useState(statusEnum.UNSET);
   const [isTooltipOpen, setTooltipOpen] = useState(false);
   const history = useHistory();
 
   function handleRegister(data) {
-    return auth
+    return api
       .register(data)
       .then(() => {
-        setTooltipStatus(status.REGISTERED);
+        setTooltipStatus(statusEnum.REGISTERED);
         setTooltipOpen(true);
       })
       .catch((error) => {
         handleError(error);
-        setTooltipStatus(status.REGISTRATION_FAIL);
+        setTooltipStatus(statusEnum.REGISTRATION_FAIL);
         setTooltipOpen(true);
       });
   }
 
   function handleCloseTooltip() {
-    if (tooltipStatus === status.REGISTERED) {
+    if (tooltipStatus === statusEnum.REGISTERED) {
       history.push('/sign-in');
     }
     setTooltipOpen(false);

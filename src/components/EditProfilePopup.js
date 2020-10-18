@@ -14,7 +14,7 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
       placeholder: 'Имя',
       required: true,
       minLength: 2,
-      maxLength: 40,
+      maxLength: 30,
       pattern: '[A-Za-zА-Яа-яЁё\\s\\-]{1,}',
       extra: { extraValidator: validateLength },
     },
@@ -25,7 +25,7 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
       placeholder: 'О себе',
       required: true,
       minLength: 2,
-      maxLength: 200,
+      maxLength: 30,
       extra: { extraValidator: validateLength },
     },
   ];
@@ -33,7 +33,11 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
   const form = {
     name: 'profile',
     title: 'Редактировать профиль',
-    initialState: { values: currentUser, errors: {}, valid: true },
+    initialState: {
+      values: { name: currentUser.name, about: currentUser.about },
+      errors: {},
+      valid: currentUser.name && currentUser.about,
+    },
     inputs: inputs,
     reset: !isOpen,
   };

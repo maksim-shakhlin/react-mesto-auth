@@ -32,7 +32,7 @@ export const errorsDictionaries = {
 };
 
 export const apiOptions = {
-  baseUrl: 'http://localhost:3000',
+  baseUrl: 'https://api.maks.students.nomoreparties.co',
   headers: {
     'Content-Type': 'application/json',
   },

@@ -72,7 +72,7 @@ function Auth({
         showLoader={showLoader}
       />
       <p className="content__tagline">
-        Еще не зарегестрированы?&nbsp;
+        Еще не зарегистрированы?&nbsp;
         <Link to={link} className="content__link">
           {linkText}
         </Link>

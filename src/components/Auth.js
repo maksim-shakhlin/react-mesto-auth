@@ -17,6 +17,7 @@ function Auth({
   isTooltipOpen,
   onTooltipClose,
   stopLoader,
+  bottomText,
 }) {
   const [showLoader, setShowLoader] = useState(false);
 
@@ -72,7 +73,7 @@ function Auth({
         showLoader={showLoader}
       />
       <p className="content__tagline">
-        Еще не зарегистрированы?&nbsp;
+        {bottomText}&nbsp;
         <Link to={link} className="content__link">
           {linkText}
         </Link>

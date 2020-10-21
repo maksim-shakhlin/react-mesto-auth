@@ -36,6 +36,7 @@ function Login({ onLogin }) {
       tooltipStatus={tooltipStatus}
       isTooltipOpen={isTooltipOpen}
       onTooltipClose={handleCloseTooltip}
+      bottomText="Еще не зарегистрированы?"
     />
   );
 }

@@ -43,6 +43,7 @@ function Register() {
       tooltipStatus={tooltipStatus}
       isTooltipOpen={isTooltipOpen}
       onTooltipClose={handleCloseTooltip}
+      bottomText="Уже зарегистрированы?"
     />
   );
 }

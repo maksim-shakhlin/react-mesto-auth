@@ -37,6 +37,7 @@ function Login({ onLogin }) {
       isTooltipOpen={isTooltipOpen}
       onTooltipClose={handleCloseTooltip}
       bottomText="Еще не зарегистрированы?"
+      admitSpaces={true}
     />
   );
 }

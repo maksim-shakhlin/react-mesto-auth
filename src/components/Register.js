@@ -5,6 +5,7 @@ import Auth from './Auth';
 import { statusEnum } from '../utils/constants';
 import { handleError } from '../utils/utils';
 import api from '../utils/api';
+import { cleanData } from '../utils/utils';
 
 function Register() {
   const [tooltipStatus, setTooltipStatus] = useState(statusEnum.UNSET);
@@ -13,7 +14,7 @@ function Register() {
 
   function handleRegister(data) {
     return api
-      .register(data)
+      .register(cleanData(data))
       .then(() => {
         setTooltipStatus(statusEnum.REGISTERED);
         setTooltipOpen(true);

@@ -67,7 +67,7 @@ function App() {
 
   function handleLogin(data) {
     setCurrentUser(userStateEnum.CAST);
-    return api.authorize(data).then(() => {
+    return api.authorize(cleanData(data)).then(() => {
       getData();
     });
   }

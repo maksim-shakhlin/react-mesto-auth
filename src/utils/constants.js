@@ -84,3 +84,6 @@ export const userStateEnum = {
   CAST: 0, // after login, before getUser
 };
 Object.freeze(userStateEnum);
+
+export const paswordPattern =
+  '[0-9a-zA-Z!@#$%^&*()-_+=;:,./?\\|`~[\\]{}<>"\']+';

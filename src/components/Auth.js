@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import Form from './Form';
 import InfoTooltip from './InfoTooltip';
 
-import { statuses } from '../utils/constants';
+import { statuses, paswordPattern } from '../utils/constants';
 
 function Auth({
   onSubmit,
@@ -18,6 +18,7 @@ function Auth({
   onTooltipClose,
   stopLoader,
   bottomText,
+  admitSpaces,
 }) {
   const [showLoader, setShowLoader] = useState(false);
 
@@ -47,7 +48,9 @@ function Auth({
       type: 'password',
       required: true,
       minLength: 6,
-      pattern: '[0-9a-zA-Z!@#$%^&*()-_+=;:,./?\\|`~[\\]{}<>"\']{1,}',
+      pattern: admitSpaces
+        ? `^\\s*${paswordPattern}\\s*$`
+        : `^${paswordPattern}$`,
       placeholder: 'Пароль',
       autoComplete: autoComplete,
     },
@@ -90,6 +93,7 @@ function Auth({
 Auth.defaultProps = {
   autoComplete: 'off',
   stopLoader: true,
+  admitSpaces: false,
 };
 
 export default Auth;

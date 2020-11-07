@@ -9,6 +9,12 @@
   justify-content: start;
 }
 
+@media screen and (max-width: 646px) {
+  .cards__list {
+    justify-content: center;
+  }
+}
+
 @media screen and (max-width: 500px) {
   .cards__list {
     row-gap: 19px;

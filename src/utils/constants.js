@@ -32,7 +32,7 @@ export const errorsDictionaries = {
 };
 
 export const apiOptions = {
-  baseUrl: 'https://api.maks.students.nomoreparties.xyz',
+  baseUrl: 'https://api.mesto.deque.ru',
   // baseUrl: 'http://localhost:3000',
   headers: {
     'Content-Type': 'application/json',

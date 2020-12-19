@@ -28,7 +28,7 @@
     "eject": "react-scripts eject",
     "predeploy-gh": "npm run build",
     "deploy-gh": "gh-pages -d build",
-    "deploy": "npm run build && ssh maksim-shakhlin@84.201.154.112 rm -rf /home/maksim-shakhlin/frontend/* && scp -r ./build/* maksim-shakhlin@84.201.154.112:/home/maksim-shakhlin/frontend"
+    "deploy": "npm run build && ssh maks@212.109.194.119 rm -rf /home/maks/mesto-frontend/* && scp -r ./build/* maks@212.109.194.119:/home/maks/mesto-frontend"
   },
   "eslintConfig": {
     "extends": "react-app"

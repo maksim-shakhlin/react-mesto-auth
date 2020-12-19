@@ -8,4 +8,4 @@
 Репозиторий бэкенда на Express: [react-mesto-api-full](https://github.com/maksim-shakhlin/react-mesto-api-full/)
 
 ## Деплой
-Сайт на Яндекс.Облаке: [maks.students.nomoreparties.xyz](https://maks.students.nomoreparties.xyz/)
+[mesto.deque.ru](https://mesto.deque.ru/)
